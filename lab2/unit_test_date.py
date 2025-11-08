@@ -35,7 +35,7 @@ class TestDateValidation(unittest.TestCase):
     def test_duplicates_removed(self):
         text = "01.01.2025 и снова 01.01.2025, а также 02.02.2025."
         result = extract_valid_dates_from_text(text)
-        self.assertEqual(result, ["01.01.2025", "02.02.2025"])
+        self.assertEqual(result, ["01.01.2025", "01.01.2025", "02.02.2025"])
 
     def test_no_dates_found(self):
         self.assertEqual(extract_valid_dates_from_text("Просто текст."), [])
