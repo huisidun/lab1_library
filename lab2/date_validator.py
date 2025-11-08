@@ -20,15 +20,7 @@ def is_valid_date(date_str: str) -> bool:
 # Извлечение уникальных валидных дат из текста
 def extract_valid_dates_from_text(text: str) -> List[str]:
     candidates = find_potential_dates(text)
-    valid_dates = [d for d in candidates if is_valid_date(d)]
-    # Удаление дубликатов с сохранением порядка
-    seen = set()
-    result = []
-    for d in valid_dates:
-        if d not in seen:
-            result.append(d)
-            seen.add(d)
-    return result
+    return [d for d in candidates if is_valid_date(d)]
 
 # Извлечение дат с веб-страницы (с User-Agent для совместимости)
 def extract_valid_dates_from_url(url: str) -> List[str]:
