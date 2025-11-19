@@ -1,0 +1,34 @@
+{
+   "users": [
+    {
+        "first_name": "сергей",
+        "last_name": "петров",
+        "phone": "+70000000000",
+        "email": "sergo@mail.ru",
+        "password": "qwerty",
+        "id": "00001"
+    },
+    {
+        "first_name": "иван",
+        "last_name": "иванов",
+        "phone": "+71234567890",
+        "email": "ivan4k@gmail.com",
+        "password": "12345",
+        "id": "00002"
+    }
+   ],
+   "stat": [
+    {
+        "id": "00001",
+        "best_time_1": "26.709",
+        "best_time_2": "173.207",
+        "best_time_3": null
+    },
+    {
+        "id": "00002",
+        "best_time_1": null,
+        "best_time_2": null,
+        "best_time_3": "387.092"
+    }
+   ]
+}
