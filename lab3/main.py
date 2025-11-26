@@ -12,6 +12,7 @@ class AppController:
         self.login_window = None
         self.menu_window = None
         self.game_window = None
+        self.current_user = None
 
         self.show_login()
 
@@ -32,17 +33,31 @@ class AppController:
 
     def show_login(self):
         if self.login_window is None:
-            self.login_window = LoginWindow(self.show_menu, self.current_scale, self.set_scale)
+            self.login_window = LoginWindow(
+                switch_to_menu=self._on_authenticated,
+                initial_scale=self.current_scale,
+                set_scale_callback=self.set_scale
+            )
         else:
             self.login_window.apply_scale(self._current_scale)
         self.login_window.show()
         self._hide_except("login")
 
+    def _on_authenticated(self, user):
+        self.current_user = user
+        self.show_menu()  
+
     def show_menu(self):
         if self.menu_window is None:
-            self.menu_window = MenuWindow(self.show_login, self.show_game, self.current_scale, self.set_scale)
+            self.menu_window = MenuWindow(
+                switch_to_login=self.show_login,
+                switch_to_game=self.show_game,
+                initial_scale=self.current_scale,
+                set_scale_callback=self.set_scale,
+                user=self.current_user 
+            )
         else:
-            self.menu_window.apply_scale(self._current_scale)
+            self.menu_window.update_greeting(self.current_user)
         self.menu_window.show()
         self._hide_except("menu")
 

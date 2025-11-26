@@ -1,5 +1,7 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFormLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QLineEdit, QFormLayout, QMessageBox
 from PyQt5.QtCore import Qt
+from use_data import authenticate_user
+from exceptions import InvalidCredentialsError
 
 
 class LoginWindow(QWidget):
@@ -46,17 +48,26 @@ class LoginWindow(QWidget):
         form.addRow("Пароль:", self.password_input)
         self._layout.addLayout(form)
 
-        title = QLabel(" ")
-        self._layout.addWidget(title)
-        title = QLabel(" ")
-        self._layout.addWidget(title)
+        self._layout.addStretch()
 
         login_btn = QPushButton("Войти")
-        login_btn.clicked.connect(self._switch_to_menu)
+        login_btn.clicked.connect(self._on_login)  # ← НОВЫЙ МЕТОД!
         self._layout.addWidget(login_btn)
 
         register_btn = QPushButton("Регистрация")
         self._layout.addWidget(register_btn)
+
+    def _on_login(self):
+        phone = self.phone_input.text().strip()
+        password = self.password_input.text()
+
+        try:
+            user = authenticate_user(phone, password)
+            self._switch_to_menu(user)  
+        except InvalidCredentialsError:
+            QMessageBox.warning(self, "Ошибка", "Неверный телефон или пароль.")
+        except Exception as e:
+            QMessageBox.critical(self, "Ошибка", f"Не удалось войти: {str(e)}")
 
     def apply_scale(self, scale: str):
         size_map = {"small": (800, 600), "medium": (900, 700), "large": (1000, 800)}
