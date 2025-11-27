@@ -23,18 +23,16 @@ class MenuWindow(QWidget):
         
         if self._user:
             title = QLabel("САПЁР")
-            title.setStyleSheet("font-size: 20px; font-weight: bold;")
+            title.setStyleSheet("font-size: 20px; font-weight: bold; ")
             title.setAlignment(Qt.AlignLeft)
             self._layout.addWidget(title)
             title = QLabel(" ")
             self._layout.addWidget(title)
             greeting_text = f"Здравствуй, {self._user['first_name']} {self._user['last_name']}!"
             greeting = QLabel(greeting_text)
-            greeting.setStyleSheet("font-size: 16px; font-weight: bold;")
+            greeting.setStyleSheet("font-size: 18px; font-weight: bold; color: #510202;")
             greeting.setAlignment(Qt.AlignLeft)
             self._layout.addWidget(greeting)
-            title = QLabel(" ")
-            self._layout.addWidget(title)
         else:
             title = QLabel("САПЁР")
             title.setStyleSheet("font-size: 20px; font-weight: bold;")

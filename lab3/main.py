@@ -3,10 +3,12 @@ from PyQt5.QtWidgets import QApplication
 from login_window import LoginWindow
 from menu_window import MenuWindow
 from game_window import GameWindow
+from styles import get_global_style
 
 class AppController:
     def __init__(self):
         self.app = QApplication(sys.argv)
+        self.app.setStyleSheet(get_global_style())
         self._current_scale = "medium"
 
         self.login_window = None
