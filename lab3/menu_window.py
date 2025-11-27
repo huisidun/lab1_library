@@ -28,7 +28,7 @@ class MenuWindow(QWidget):
             self._layout.addWidget(title)
             title = QLabel(" ")
             self._layout.addWidget(title)
-            greeting_text = f"Здравствуй, {self._user['first_name']} {self._user['last_name']}!"
+            greeting_text = f"Здравствуй, {self._user.full_name}!"
             greeting = QLabel(greeting_text)
             greeting.setStyleSheet("font-size: 18px; font-weight: bold; color: #510202;")
             greeting.setAlignment(Qt.AlignLeft)
