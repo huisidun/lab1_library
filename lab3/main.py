@@ -1,4 +1,3 @@
-# main.py
 import sys
 from PyQt5.QtWidgets import QApplication
 from login_window import LoginWindow
@@ -73,10 +72,8 @@ class AppController:
         difficulty_map = {
             (9, 9, 10): "новичок",
             (16, 16, 40): "любитель",
-            (16, 30, 99): "профессионал"  # ← ВАЖНО: (rows, cols, mines)
+            (16, 30, 99): "профессионал" 
         }
-        # Обрати внимание: в game_params передаётся (rows, cols, mines)
-        # Но в профессиональном режиме: rows=16, cols=30
         if (rows, cols, mines) == (16, 30, 99):
             difficulty = "профессионал"
         else:

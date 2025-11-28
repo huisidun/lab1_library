@@ -1,4 +1,3 @@
-# classes/use_data.py
 import json
 import os
 from typing import List

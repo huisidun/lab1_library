@@ -1,4 +1,3 @@
-# game_window.py
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QFrame, QGridLayout, QSizePolicy, QMessageBox
 )

@@ -1,4 +1,3 @@
-# game/game_logic.py
 import random
 from typing import List
 

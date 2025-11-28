@@ -1,4 +1,3 @@
-# menu_window.py
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QLabel, QGroupBox, QHBoxLayout, QMessageBox
 from PyQt5.QtCore import Qt
 from classes.use_data import UserManager
