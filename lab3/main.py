@@ -1,9 +1,11 @@
+# main.py
 import sys
 from PyQt5.QtWidgets import QApplication
 from login_window import LoginWindow
 from menu_window import MenuWindow
 from game_window import GameWindow
 from styles import get_global_style
+
 
 class AppController:
     def __init__(self):
@@ -47,26 +49,50 @@ class AppController:
 
     def _on_authenticated(self, user):
         self.current_user = user
-        self.show_menu()  
+        self.show_menu()
 
     def show_menu(self):
         if self.menu_window is None:
             self.menu_window = MenuWindow(
                 switch_to_login=self.show_login,
-                switch_to_game=self.show_game,
+                switch_to_game=self._on_game_selected,
                 initial_scale=self.current_scale,
                 set_scale_callback=self.set_scale,
-                user=self.current_user 
+                user=self.current_user
             )
         else:
             self.menu_window.update_greeting(self.current_user)
         self.menu_window.show()
         self._hide_except("menu")
 
-    def show_game(self):
+    def _on_game_selected(self, game_params):
+        self.show_game(game_params)
+
+    def show_game(self, game_params=(9, 9, 10)):
+        rows, cols, mines = game_params
+        difficulty_map = {
+            (9, 9, 10): "новичок",
+            (16, 16, 40): "любитель",
+            (16, 30, 99): "профессионал"  # ← ВАЖНО: (rows, cols, mines)
+        }
+        # Обрати внимание: в game_params передаётся (rows, cols, mines)
+        # Но в профессиональном режиме: rows=16, cols=30
+        if (rows, cols, mines) == (16, 30, 99):
+            difficulty = "профессионал"
+        else:
+            difficulty = difficulty_map.get((rows, cols, mines), "новичок")
+
         if self.game_window:
             self.game_window.close()
-        self.game_window = GameWindow(self.show_menu, self._current_scale)
+        self.game_window = GameWindow(
+            switch_to_menu=self.show_menu,
+            scale=self._current_scale,
+            rows=rows,
+            cols=cols,
+            mines=mines,
+            current_user=self.current_user,
+            difficulty=difficulty
+        )
         self.game_window.show()
         self._hide_except("game")
 

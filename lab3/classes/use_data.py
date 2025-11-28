@@ -1,3 +1,4 @@
+# classes/use_data.py
 import json
 import os
 from typing import List
@@ -24,14 +25,12 @@ class UserManager:
             print(f"Ошибка загрузки данных: {e}")
             return
 
-        # Загружаем пользователя
         for raw_user in raw.get("users", []):
             try:
                 self.users.append(User.from_dict(raw_user))
             except (KeyError, ValueError) as e:
                 print(f"Пропущен пользователь: {e}")
 
-        # Загружаем рекорды
         for raw_record in raw.get("stat", []):
             try:
                 self.records.append(GameRecord.from_dict(raw_record))
@@ -51,18 +50,17 @@ class UserManager:
         new_record = GameRecord(user_id)
         self.records.append(new_record)
         return new_record
-    
+
     def add_user(self, user: 'User') -> bool:
-        """Добавляет нового пользователя, если телефона ещё нет."""
         for existing in self.users:
             if existing.phone == user.phone:
-                return False  # значит пользвоатель уже существует
+                return False
         self.users.append(user)
         self._save_data()
         return True
 
-    def _save_data(self):
-        """Сохраняет пользователей и рекорды обратно в data.json."""
+    def save_records(self):
+        """Сохраняет ТОЛЬКО рекорды (stat), не трогая пользователей."""
         try:
             if os.path.exists(self.data_path):
                 with open(self.data_path, "r", encoding="utf-8") as f:
@@ -70,11 +68,23 @@ class UserManager:
             else:
                 full_data = {"users": [], "stat": []}
 
-            full_data["users"] = [user.to_dict() for user in self.users]
             full_data["stat"] = [record.to_dict() for record in self.records]
 
             with open(self.data_path, "w", encoding="utf-8") as f:
                 json.dump(full_data, f, ensure_ascii=False, indent=4)
         except Exception as e:
-            print(f"Ошибка сохранения: {e}")
+            print(f"Ошибка сохранения рекордов: {e}")
+            raise
+
+    def _save_data(self):
+        """Сохраняет и пользователей, и рекорды."""
+        try:
+            full_data = {
+                "users": [user.to_dict() for user in self.users],
+                "stat": [record.to_dict() for record in self.records]
+            }
+            with open(self.data_path, "w", encoding="utf-8") as f:
+                json.dump(full_data, f, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"Ошибка полного сохранения: {e}")
             raise

@@ -1,10 +1,8 @@
-# пока наброски 
-
+# некорректные данные при регистрации
 class InvalidUserDataError(Exception):
     pass
 
-class InvalidCredentialsError(Exception):
-    pass
 
-class UserNotFoundError(Exception):
+# неверный пароль или телефон при авторизации
+class InvalidCredentialsError(Exception):
     pass

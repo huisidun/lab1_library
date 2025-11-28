@@ -1,5 +1,6 @@
 import re
 from typing import Dict
+from exceptions import InvalidUserDataError
 
 
 class User:
@@ -19,40 +20,28 @@ class User:
         email: str,
         password: str
     ):
-        if not isinstance(user_id, str):
-            raise TypeError("user_id должен быть строкой")
-        if not user_id.strip():
-            raise ValueError("user_id не может быть пустым")
+        if not isinstance(user_id, str) or not user_id.strip():
+            raise InvalidUserDataError("user_id должен быть непустой строкой")
         self.id = user_id.strip()
 
-        if not isinstance(first_name, str):
-            raise TypeError("first_name должен быть строкой")
-        if not first_name.strip():
-            raise ValueError("first_name не может быть пустым")
+        if not isinstance(first_name, str) or not first_name.strip():
+            raise InvalidUserDataError("first_name должен быть непустой строкой")
         self.first_name = first_name.strip()
 
-        if not isinstance(last_name, str):
-            raise TypeError("last_name должен быть строкой")
-        if not last_name.strip():
-            raise ValueError("last_name не может быть пустым")
+        if not isinstance(last_name, str) or not last_name.strip():
+            raise InvalidUserDataError("last_name должен быть непустой строкой")
         self.last_name = last_name.strip()
 
-        if not isinstance(phone, str):
-            raise TypeError("phone должен быть строкой")
-        if not self._is_valid_phone(phone):
-            raise ValueError("Некорректный формат телефона. Должен начинаться с +7 и содержать 11 цифр")
+        if not isinstance(phone, str) or not self._is_valid_phone(phone):
+            raise InvalidUserDataError("Некорректный формат телефона. Должен начинаться с +7 и содержать 11 цифр")
         self.phone = phone
 
-        if not isinstance(email, str):
-            raise TypeError("email должен быть строкой")
-        if not self._is_valid_email(email):
-            raise ValueError("Некорректный формат email")
+        if not isinstance(email, str) or not self._is_valid_email(email):
+            raise InvalidUserDataError("Некорректный формат email")
         self.email = email.lower()
 
-        if not isinstance(password, str):
-            raise TypeError("password должен быть строкой")
-        if len(password) < 4:
-            raise ValueError("Пароль должен содержать не менее 4 символов")
+        if not isinstance(password, str) or len(password) < 4:
+            raise InvalidUserDataError("Пароль должен быть строкой не короче 4 символов")
         self.password = password
 
     @property
