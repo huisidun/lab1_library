@@ -23,6 +23,14 @@
             "phone": "+79896299255",
             "email": "gridasovaangelina@mail.ru",
             "password": "11111"
+        },
+        {
+            "id": "00004",
+            "first_name": "василиса",
+            "last_name": "петрова",
+            "phone": "+71111111111",
+            "email": "11@mail.ru",
+            "password": "54321"
         }
     ],
     "stat": [
@@ -41,6 +49,12 @@
         {
             "id": "00003",
             "best_time_1": "33.000",
+            "best_time_2": null,
+            "best_time_3": null
+        },
+        {
+            "id": "00004",
+            "best_time_1": "39.000",
             "best_time_2": null,
             "best_time_3": null
         }
