@@ -9,16 +9,6 @@ def get_global_style() -> str:
     QLabel {
         color: #333;
     }
-    QLabel[header="true"] {
-        font-size: 20px;
-        font-weight: bold;
-        color: #2c3e50;
-    }
-    QLabel[greeting="true"] {
-        font-size: 16px;
-        font-weight: bold;
-        color: #27ae60;
-    }
     QPushButton {
         background-color: #C7C6C6;
         color: black;
