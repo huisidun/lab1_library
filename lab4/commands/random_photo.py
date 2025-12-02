@@ -1,4 +1,4 @@
-from aiogram import Router, types
+from aiogram import Router
 from aiogram.filters import Command
 from aiogram.types import Message
 from unsplash_client import get_random_photo_url
@@ -14,7 +14,7 @@ async def cmd_random_photo(message: Message):
     if photo_data and photo_data['url']:
         await message.answer_photo(
             photo=photo_data['url'],
-            caption=f"{photo_data['description']} " # подпись к фото
+            caption=f"{photo_data['description']} " 
             #caption=f"{photo_data['description']} (Фото от {photo_data['photographer']})" 
 
         )
