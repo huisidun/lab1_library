@@ -5,6 +5,7 @@ import logging
 from tokenn import TOKEN
 
 from commands.start import router as start_router
+from commands.random_photo import router as random_photo_router
 
 # настройка логирования
 logging.basicConfig(level=logging.INFO)
@@ -16,6 +17,7 @@ async def main():
 
     # регистрируем роутеры
     dp.include_router(start_router)
+    dp.include_router(random_photo_router)
 
     # команды бота
     await bot.set_my_commands([
