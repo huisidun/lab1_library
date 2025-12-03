@@ -1,0 +1,4 @@
+aiogram==3.22.0
+matplotlib==3.10.7
+pandas==2.3.3
+Requests==2.32.5
